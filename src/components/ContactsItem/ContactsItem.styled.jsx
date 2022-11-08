@@ -23,7 +23,7 @@ export const ContactName = styled.span`
 
 export const ContactNumber = styled.span`
   display: inline-block;
-  min-width: 150px;
+  min-width: 170px;
   margin-left: ${({ theme }) => theme.space[2]}px;
 `;
 

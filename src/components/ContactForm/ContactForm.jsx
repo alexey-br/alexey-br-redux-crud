@@ -1,6 +1,5 @@
 import { Formik, Form } from 'formik';
 import { useDispatch } from 'react-redux';
-// import { addContact } from 'redux/contactsSlice';
 import { schema } from './validationSchema';
 
 import {
@@ -10,16 +9,18 @@ import {
   SubmitBtn,
   ValidationError,
 } from './ContactForm.styled';
+import { addContact } from 'redux/operations';
 
 const initialValues = {
   name: '',
-  number: '',
+  phone: '',
 };
 
 const ContactForm = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, { resetForm }) => {
+    dispatch(addContact(values));
     resetForm();
   };
 
@@ -32,13 +33,13 @@ const ContactForm = () => {
       <Form>
         <InputItem>
           <InputLabel>Name:</InputLabel>
-          <Input type="text" name="name" />
+          <Input type="text" name="name" autoComplete="off" />
           <ValidationError component="span" name="name" />
         </InputItem>
         <InputItem>
           <InputLabel>Number:</InputLabel>
-          <Input type="tel" name="number" />
-          <ValidationError component="span" name="number" />
+          <Input type="tel" name="phone" autoComplete="off" />
+          <ValidationError component="span" name="phone" />
         </InputItem>
         <SubmitBtn type="submit">Add contact</SubmitBtn>
       </Form>

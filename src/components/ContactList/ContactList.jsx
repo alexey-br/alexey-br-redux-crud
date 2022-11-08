@@ -1,16 +1,10 @@
 import { useSelector } from 'react-redux';
-import { getFilter } from 'redux/filterSlice';
-import { getContacts } from 'redux/contactsSlice';
+import { selectFilteredContacts } from 'redux/selectors';
 import Box from 'components/reusableComponents/Box';
 import ContactsItem from '../ContactsItem';
 
 export default function ContactList() {
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter).toLocaleLowerCase();
-
-  const filteredContacts = contacts.filter(({ name }) =>
-    name.toLocaleLowerCase().includes(filter)
-  );
+  const filteredContacts = useSelector(selectFilteredContacts);
 
   return (
     <Box as="ul" pl={0}>

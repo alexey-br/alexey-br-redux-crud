@@ -8,8 +8,6 @@ export const selectFilter = state => state.filter;
 export const selectFilteredContacts = createSelector(
   [selectContacts, selectFilter],
   (contacts, filter) => {
-    console.log('selector');
-
     return contacts.filter(({ name }) =>
       name.toLocaleLowerCase().includes(filter)
     );

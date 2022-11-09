@@ -6,7 +6,7 @@ const override = {
   opacity: '0.7',
 };
 
-export const Loader = () => {
+const Loader = () => {
   return (
     <PacmanLoader
       cssOverride={override}
@@ -15,3 +15,5 @@ export const Loader = () => {
     />
   );
 };
+
+export default Loader;

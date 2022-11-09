@@ -1,14 +1,17 @@
-import ContactForm from './ContactForm';
-import Filter from './Filter';
-import ContactList from './ContactList';
-import Box from './reusableComponents/Box';
-import { Loader } from './reusableComponents/Loader/Loader';
-import { HeaderH1, HeaderH2 } from './reusableComponents/Headers';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchContacts } from 'redux/operations';
 import { selectError, selectIsLoading } from 'redux/selectors';
-import { ErrorMessage } from './reusableComponents/ErrorMessage/ErrorMessage';
+import ContactForm from './ContactForm';
+import Filter from './Filter';
+import ContactList from './ContactList';
+import {
+  Box,
+  ErrorMessage,
+  HeaderH1,
+  HeaderH2,
+  Loader,
+} from './reusableComponents';
 
 export default function App() {
   const dispatch = useDispatch();

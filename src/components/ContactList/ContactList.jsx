@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { selectFilteredContacts } from 'redux/selectors';
-import Box from 'components/reusableComponents/Box';
+import { Box } from 'components/reusableComponents';
 import ContactsItem from '../ContactsItem';
 
 export default function ContactList() {

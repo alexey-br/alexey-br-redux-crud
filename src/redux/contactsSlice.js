@@ -3,42 +3,44 @@ import { addContact, deleteContact, fetchContacts } from './operations';
 
 const initialState = { items: [], isLoading: false, error: null };
 
-const handlePending = state => ({ ...state, isLoading: true });
-const handleRejected = (state, { payload }) => ({
-  ...state,
-  isLoading: false,
-  error: payload,
-});
+function isPendingAction(action) {
+  return action.type.endsWith('pending');
+}
+
+function isRejectedAction(action) {
+  return action.type.endsWith('rejected');
+}
 
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
-  extraReducers: {
-    [fetchContacts.pending]: handlePending,
-    [addContact.pending]: handlePending,
-    [deleteContact.pending]: handlePending,
-
-    [fetchContacts.rejected]: handleRejected,
-    [addContact.rejected]: handleRejected,
-    [deleteContact.rejected]: handleRejected,
-
-    [fetchContacts.fulfilled](_, { payload }) {
-      return { items: [...payload], isLoading: false, error: null };
-    },
-    [addContact.fulfilled]({ items }, { payload: { name, phone, id } }) {
-      return {
-        items: [...items, { id, name, phone }],
+  extraReducers: builder => {
+    builder
+      .addCase(fetchContacts.fulfilled, (_, { payload }) => ({
+        items: [...payload],
         isLoading: false,
-        error: null,
-      };
-    },
-    [deleteContact.fulfilled]({ items }, { payload: { id } }) {
-      return {
+      }))
+      .addCase(
+        addContact.fulfilled,
+        ({ items }, { payload: { name, phone, id } }) => ({
+          items: [...items, { id, name, phone }],
+          isLoading: false,
+        })
+      )
+      .addCase(deleteContact.fulfilled, ({ items }, { payload: { id } }) => ({
         items: items.filter(contact => contact.id !== id),
         isLoading: false,
+      }))
+      .addMatcher(isPendingAction, state => ({
+        ...state,
+        isLoading: true,
         error: null,
-      };
-    },
+      }))
+      .addMatcher(isRejectedAction, state => ({
+        ...state,
+        isLoading: true,
+        error: null,
+      }));
   },
 });
 
